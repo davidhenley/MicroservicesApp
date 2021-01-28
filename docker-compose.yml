@@ -6,3 +6,6 @@ services:
     build:
       context: .
       dockerfile: src/Catalog/Catalog.API/Dockerfile
+      
+  db:
+    image: mcr.microsoft.com/mssql/server

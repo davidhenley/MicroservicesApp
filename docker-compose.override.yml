@@ -2,9 +2,19 @@ version: '3.4'
 
 services:
   catalog.api:
-    container_name: catalogapi
+    container_name: catalog.api
     environment:
+      - ConnectionStrings:Default=Server=mssql;Database=Catalog;User Id=sa;Password=P@ssword;
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings:Default=Memory
+    depends_on:
+      - db
     ports:
       - 8000:80
+  
+  db:
+    container_name: mssql
+    environment:
+      - SA_PASSWORD=P@ssword
+      - ACCEPT_EULA=Y
+    ports:
+      - 1433:1433

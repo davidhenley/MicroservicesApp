@@ -18,9 +18,9 @@ namespace Catalog.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            
+
             services.AddDbContext<CatalogContext>(o =>
-                o.UseInMemoryDatabase(Configuration.GetConnectionString("Default")));
+                o.UseSqlServer(Configuration.GetConnectionString("Default")));
 
             services.AddSwaggerGen(c =>
             {
@@ -47,7 +47,8 @@ namespace Catalog.API
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => endpoints.MapControllers());
-
+            
+            context.Database.EnsureCreated();
             CatalogContextSeed.SeedDataAsync(context).Wait();
         }
     }

@@ -15,6 +15,11 @@ namespace Catalog.API.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CatalogContext).Assembly);
+
+            modelBuilder.Entity<Product>(builder =>
+            {
+                builder.Property(product => product.Price).HasPrecision(10, 2);
+            });
         }
     }
 }
