@@ -5,6 +5,7 @@ using Catalog.API.Data;
 using Catalog.API.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Catalog.API.Controllers
 {
@@ -16,8 +17,13 @@ namespace Catalog.API.Controllers
     public class CatalogController : ControllerBase
     {
         private readonly CatalogContext _context;
+        private readonly ILogger<CatalogController> _logger;
 
-        public CatalogController(CatalogContext context) => _context = context;
+        public CatalogController(CatalogContext context, ILogger<CatalogController> logger)
+        {
+            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        }
 
         /// <summary>
         /// Listing products and categories
@@ -40,6 +46,7 @@ namespace Catalog.API.Controllers
 
             if (product is null)
             {
+                _logger.LogError($"Product with id {id} not found.");
                 return NotFound();
             }
 
@@ -79,16 +86,18 @@ namespace Catalog.API.Controllers
         {
             if (id != product.Id)
             {
+                _logger.LogError($"Id {id} does not match product id {product.Id}");
                 return BadRequest();
             }
-            
+
             var productFromDb = await _context.Products.FindAsync(id);
 
             if (productFromDb is null)
             {
+                _logger.LogError($"Product with id {id} not found.");
                 return NotFound();
             }
-            
+
             _context.Entry(productFromDb).CurrentValues.SetValues(product);
             await _context.SaveChangesAsync();
 
@@ -105,6 +114,7 @@ namespace Catalog.API.Controllers
 
             if (productFromDb is null)
             {
+                _logger.LogError($"Product with id {id} not found.");
                 return NotFound();
             }
 
