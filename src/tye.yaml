@@ -8,3 +8,5 @@ name: microservicesapp
 services:
 - name: catalog-api
   project: Catalog/Catalog.API/Catalog.API.csproj
+- name: basket-api
+  project: Basket/Basket.API/Basket.API.csproj

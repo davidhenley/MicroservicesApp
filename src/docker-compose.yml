@@ -6,6 +6,12 @@ services:
     build:
       context: .
       dockerfile: Catalog/Catalog.API/Dockerfile
+    
+  basket.api:
+    image: ${DOCKER_REGISTRY-}catalogapi
+    build:
+      context: .
+      dockerfile: Basket/Basket.API/Dockerfile
       
   db:
     image: mcr.microsoft.com/mssql/server
