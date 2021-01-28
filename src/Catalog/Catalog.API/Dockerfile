@@ -4,11 +4,11 @@ EXPOSE 80
 WORKDIR /source
 
 # copy csproj and restore as distinct layers
-COPY src/Catalog/Catalog.API/Catalog.API.csproj .
+COPY Catalog/Catalog.API/Catalog.API.csproj .
 RUN dotnet restore
 
 # copy everything else and build app
-COPY src/Catalog/Catalog.API/ .
+COPY Catalog/Catalog.API/ .
 RUN dotnet publish -c release -o /app
 
 # final stage/image

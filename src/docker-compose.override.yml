@@ -5,7 +5,7 @@ services:
     container_name: catalog.api
     environment:
       - ConnectionStrings:Default=Server=mssql;Database=Catalog;User Id=sa;Password=P@ssword;
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
     depends_on:
       - db
     ports:

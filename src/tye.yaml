@@ -7,4 +7,4 @@
 name: microservicesapp
 services:
 - name: catalog-api
-  project: src/Catalog/Catalog.API/Catalog.API.csproj
+  project: Catalog/Catalog.API/Catalog.API.csproj
